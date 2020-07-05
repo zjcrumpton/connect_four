@@ -3,8 +3,10 @@ require './lib/grid.rb'
 describe Grid do
   describe "#initialize" do
     it "runs build_grid method" do
+  
+      expect_any_instance_of(Grid).to receive(:build_grid)
       grid = Grid.new
-      expect(grid).to have_received(build_grid)
+
     end
   end
 
@@ -17,16 +19,17 @@ describe Grid do
     it "populates top row with nodes containing numbers 1-7" do
       grid = Grid.new
       expect(grid.board[0, 1].contains).to eql(2)
-  end
+    end
 
-  it "populates middle rows with empty nodes" do
-    grid = Grid.new
-    expect(grid.board[4, 4],contains).to eql(nil)
-  end
+    it "populates middle rows with empty nodes" do
+      grid = Grid.new
+      expect(grid.board[4, 4],contains).to eql(nil)
+    end
 
-  it "populates bottom row with nodes containing string: 'end'" do
-    grid = Grid.new
-    expect(grid.board[3, 7]).to eql("end")
+    it "populates bottom row with nodes containing string: 'end'" do
+      grid = Grid.new
+      expect(grid.board[3, 7]).to eql("end")
+    end
   end
 
   describe "#add_links" do
@@ -46,4 +49,5 @@ describe Grid do
       grid.add_links
       expect(grid.board[0, 7].next).not_to eql(nil)
     end
+  end
 end
