@@ -31,21 +31,16 @@ describe Grid do
   end
 
   describe "#add_links" do
-    it "returns a node above the end row" do
-      grid = Grid.new
-      expect(grid.add_links.next.contains).to eql("end")
-    end
-
     it "creates a linked list type structure" do
       grid = Grid.new
       grid.add_links
-      expect(grid.board[0, 0].next).not_to eql(nil)
+      expect(grid.board[0][0].next_node).not_to eql(nil)
     end
 
     it "acts on the entire top row of the board" do
       grid = Grid.new
       grid.add_links
-      expect(grid.board[0, 7].next).not_to eql(nil)
+      expect(grid.board[0][6].next_node).not_to eql(nil)
     end
   end
 end
