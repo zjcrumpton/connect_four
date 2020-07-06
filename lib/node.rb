@@ -4,9 +4,10 @@ require 'pry'
 
 # represents a single space on the Connect 4 Grid
 class Node
-  attr_accessor :contains, :next_node
-  def initialize(contains = nil, next_node = nil)
+  attr_accessor :contains, :next_node, :location
+  def initialize(contains = nil, location = nil)
     @contains = contains
-    @next_node = next_node
+    @location = location
+    @next_node = nil
   end
 end
