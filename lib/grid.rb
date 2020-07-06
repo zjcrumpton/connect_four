@@ -47,8 +47,8 @@ class Grid
           print '====='.blue
         elsif item.contains.nil?
           print '|-o-|'.light_blue
-        elsif item.contains == 'R' || item.contains == 'Y'
-          item.contains == 'R' ? (print '|-o-|'.red) : (print '|-o-|'.yellow)
+        elsif item.contains == 'Red' || item.contains == 'Yellow'
+          item.contains == 'Red' ? (print '|-o-|'.red) : (print '|-o-|'.yellow)
         else
           print "  #{item.contains}  ".green
         end
