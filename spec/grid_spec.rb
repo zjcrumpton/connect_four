@@ -2,11 +2,6 @@ require './lib/grid.rb'
 
 describe Grid do
   describe "#initialize" do
-    it "runs build_grid method" do
-      expect_any_instance_of(Grid).to receive(:build_grid)
-      grid = Grid.new
-    end
-
     it "creates an array" do
       grid = Grid.new
       expect(grid.board.class).to eql(Array)
