@@ -3,22 +3,20 @@ require './lib/grid.rb'
 describe Grid do
   describe "#initialize" do
     it "runs build_grid method" do
-  
       expect_any_instance_of(Grid).to receive(:build_grid)
       grid = Grid.new
-
     end
-  end
 
-  describe "#build_grid" do
     it "creates an array" do
       grid = Grid.new
       expect(grid.board.class).to eql(Array)
     end
+  end
 
+  describe "#build_grid" do
     it "populates top row with nodes containing numbers 1-7" do
       grid = Grid.new
-      expect(grid.board[0][1].contains).to eql(2)
+      expect(grid.board[0][1].contains).to eql(1)
     end
 
     it "populates middle rows with empty nodes" do

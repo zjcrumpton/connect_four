@@ -4,6 +4,7 @@ require 'matrix'
 require 'pry'
 require './lib/node.rb'
 
+# represents the game board
 class Grid
   attr_accessor :board, :display
 
@@ -12,36 +13,19 @@ class Grid
   end
 
   def build_grid
-    i = 1
-    j = 0
+    row = 0
+    column = -1
     @board = Array.new(8) do
-      Array.new(7) do |item|
-        # if we're operating on the top row
-        if i <= 7 && j == 0
-          node = Node.new(i)
-          if i == 7
-            j += 1
-            i = 0
-          else
-            i += 1
-          end
-        # if we're operating on a middle row
-        elsif i <= 7 && j < 6
-          node = Node.new(nil)
-          if i ==7
-            j += 1
-            i = 0
-          else
-            i += 1
-          end
-        # if we're operating on the bottom row
+      Array.new(7) do
+        column == 6 ? (row += 1; column = 0) : column += 1
+        if row.zero?
+          Node.new(column)
+        elsif row == 7
+          Node.new('end')
         else
-          node = Node.new("end")
+          Node.new
         end
-        node
       end
-      # j += 1
-      # i = 0
     end
   end
 end
