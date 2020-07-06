@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'matrix'
 require 'pry'
 require './lib/node.rb'
+require 'colorize'
 
 # represents the game board
 class Grid
@@ -39,4 +39,24 @@ class Grid
       end
     end
   end
+
+  def display_board
+    @board.each do |row|
+      row.each do |item|
+        if item.contains == 'end'
+          print '====='.blue
+        elsif item.contains.nil?
+          print '|-o-|'.light_blue
+        elsif item.contains == 'R' || item.contains == 'Y'
+          item.contains == 'R' ? (print '|-o-|'.red) : (print '|-o-|'.yellow)
+        else
+          print "  #{item.contains}  ".green
+        end
+      end
+      print "\n"
+    end
+  end
 end
+
+grid = Grid.new
+grid.display_board
