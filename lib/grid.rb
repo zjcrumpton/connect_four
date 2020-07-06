@@ -57,6 +57,3 @@ class Grid
     end
   end
 end
-
-grid = Grid.new
-grid.display_board
