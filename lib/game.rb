@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
 require './lib/grid.rb'
 require './lib/player.rb'
 require 'colorize'
@@ -37,7 +36,6 @@ class Game
 
   def take_turn
     @current_player.drop_checker(@grid.board[0][prompt_player])
-    check_four(get_diag)
     @grid.display_board
     return game_over if check_win == true
 
@@ -57,7 +55,7 @@ class Game
   end
 
   def check_win
-    return true if check_four(get_column) == true || check_four(get_row) == true || check_diags == true
+    return true if check_four(last_column) == true || check_four(last_row) == true || check_diags == true
 
     false
   end
@@ -69,32 +67,32 @@ class Game
     end
   end
 
-  def get_row
+  def last_row
     @grid.board[current_player.last_dropped.location[0]]
   end
 
-  def get_column
+  def last_column
     @grid.board.transpose[@current_player.last_dropped.location[1]]
   end
 
   def check_diags
-    return true if check_four(get_diag) == true || check_four(get_diag(true)) == true
+    return true if check_four(last_diag) == true || check_four(last_diag(true)) == true
 
     false
   end
 
-  def get_diag(reversed = false, diagonal = nil)
+  def last_diag(reversed = false, diagonal = nil)
     padding = [*0..(@grid.board.length - 1)]
     padding = padding.reverse if reversed
     padding = padding.map { |i| [nil] * i }
     diag = padding.reverse.zip(@grid.board).zip(padding).map(&:flatten).transpose.map(&:compact).reject { |x| x.size < 5 }
     diag.each { |arr| arr.include?(@current_player.last_dropped) ? (diagonal = arr) : next }
-    return diagonal
+    diagonal
   end
-
 
   def check_four(array, winning_checkers = 0)
     return false if array.nil?
+
     array.each do |node|
       node.contains == @current_player.color ? winning_checkers += 1 : winning_checkers = 0
       return true if winning_checkers == 4
@@ -106,5 +104,3 @@ class Game
     true
   end
 end
-
-Game.new

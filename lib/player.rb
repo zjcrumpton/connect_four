@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
-require 'pry'
 require './lib/grid'
 require 'colorize'
+
+# represents players
 class Player
   attr_accessor :name, :color, :last_dropped
 
   def initialize(color)
     @color = color
-    @name = get_name
+    @name = learn_name
     puts display_info
   end
 
-  def get_name
+  def learn_name
     print "Enter #{@color} Player Name: ".green
     gets.chomp
   end
@@ -22,9 +23,7 @@ class Player
   end
 
   def drop_checker(node)
-    until !node.next_node.contains.nil? do 
-      node = node.next_node
-    end
+    node = node.next_node while node.next_node.contains.nil?
     node.contains = @color
     @last_dropped = node
   end

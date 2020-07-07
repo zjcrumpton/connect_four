@@ -1,10 +1,5 @@
-require 'matrix'
-require './node.rb'
+# frozen_string_literal: true
+
 require './lib/game.rb'
-require './lib/player.rb'
-require './lib/grid.rb'
-require 'pry'
 
-require 'pry'
-require 'matrix'
-
+Game.new
