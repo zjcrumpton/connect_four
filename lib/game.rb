@@ -30,11 +30,13 @@ class Game
     @current_player = @players[0]
     @grid = Grid.new
     @grid.display_board
+    @choices = [0, 1, 2, 3, 4, 5, 6]
     @turn_count = 0
     take_turn
   end
 
   def take_turn
+    columns_full?
     @current_player.drop_checker(@grid.board[0][prompt_player])
     @grid.display_board
     return game_over if check_win == true
@@ -47,11 +49,16 @@ class Game
     @current_player = @current_player == @players[0] ? @players[1] : @players[0]
   end
 
+  def columns_full?
+    @grid.board[0].each do |node|
+      !node.next_node.contains.nil? ? @choices.delete(node.contains) : next
+    end
+  end
+
   def prompt_player
-    choices = %w[0 1 2 3 4 5 6]
     puts "#{@current_player.name} - Please select the column where you want to drop a checker: 0-6"
-    choice = gets.chomp
-    choices.include?(choice) ? (return choice.to_i) : prompt_player
+    choice = gets.chomp.to_i
+    @choices.include?(choice) ? (return choice.to_i) : prompt_player
   end
 
   def check_win
@@ -102,5 +109,9 @@ class Game
   def game_over
     puts "#{@current_player.name} is the winner!"
     true
+  end
+
+  def tie
+    "It's a draw!"
   end
 end

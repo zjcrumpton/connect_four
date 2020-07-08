@@ -2,6 +2,7 @@
 
 require './lib/grid'
 require 'colorize'
+require 'pry'
 
 # represents players
 class Player
